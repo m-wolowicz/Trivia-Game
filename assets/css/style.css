@@ -1,0 +1,33 @@
+/*Creating my own CSS Style for the game*/
+
+/*Styles that apply to the entire page*/
+body {
+    background-color: #000000;
+}
+
+/*JUMBOTRON*/
+.jumbotron {
+    background-image: url("../images/background.jpg");
+    margin-bottom: 60px;
+    min-height: 50%;
+    background-repeat: no-repeat;
+    background-position: top;
+    -webkit-background-size: cover;
+    background-size: cover;
+    padding-top: 150px;
+    padding-bottom: 150px;
+    width: 100%
+}
+
+#gameRow {
+    text-align: center;
+    margin-top: 60px;
+}
+
+#gameCol {
+    border: 2px solid #ffffac;
+    border-radius: 5px;
+    /*background-color: #ffffff;*/
+    padding: 30px;
+    min-height: 350px;
+}
