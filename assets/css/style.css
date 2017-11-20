@@ -8,26 +8,45 @@ body {
 /*JUMBOTRON*/
 .jumbotron {
     background-image: url("../images/background.jpg");
-    margin-bottom: 60px;
+    margin-bottom: 30px;
     min-height: 50%;
     background-repeat: no-repeat;
     background-position: top;
     -webkit-background-size: cover;
     background-size: cover;
-    padding-top: 150px;
-    padding-bottom: 150px;
+    padding-top: 140px;
+    padding-bottom: 140px;
     width: 100%
 }
 
 #gameRow {
     text-align: center;
-    margin-top: 60px;
+    margin-top: 30px;
 }
 
 #gameCol {
     border: 2px solid #ffffac;
     border-radius: 5px;
-    /*background-color: #ffffff;*/
     padding: 30px;
-    min-height: 350px;
+    min-height: 300px;
+    margin-bottom: 60px;
 }
+
+/*START BUTTON*/
+#startBtn {
+    background-color: #ffffac;
+    color: black;
+    border: none;
+    font-style: 200%;
+    font-weight: 500;
+    padding: 10px 30px;
+}
+
+#timer {
+    font-size: 300%;
+    color: #ffffac;
+    letter-spacing: 2px;
+    font-weight: 500;
+}
+
+
