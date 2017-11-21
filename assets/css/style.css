@@ -106,6 +106,7 @@ body {
 
 .gifImg {
     max-height: 200px;
+    max-width: 320px;
     border: 1px solid #ffffff;
     border-radius: 5px;
 }
@@ -134,9 +135,6 @@ body {
     border: 1px solid #ffffac;    
 }
 
-
-
-
 #finalMessage {
     color: white;
     font-size: 200%;
@@ -151,9 +149,3 @@ body {
     letter-spacing: 1px;
     line-height: 2;
 }
-
-
-
-
-
-

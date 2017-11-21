@@ -227,7 +227,13 @@ $(document).ready(function(){
 	//This function displays the countdown
 	function showCountdown(){
 		seconds--;
-		$("#timeLeft").html("00:" + seconds);
+
+		if(seconds < 10) {
+			$("#timeLeft").html("00:0" + seconds);	
+		} else {
+			$("#timeLeft").html("00:" + seconds);	
+		}
+		
 		if(seconds < 1){
 			clearInterval(time);
 			answered = false;
