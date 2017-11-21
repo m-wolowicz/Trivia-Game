@@ -18,174 +18,290 @@ $(document).ready(function(){
 // ================
 
 	//Define all global variables and objects
-	var timer;			//Holds the timer for the game
-	var right; 			//Number of questions answered correctly
-	var wrong; 			//Number of questions answered incorrectly
-	var unanswered; 	//Number of unanswered questions
+	var currentQuestion; 
+	var correctAnswer; 
+	var incorrectAnswer; 
+	var unanswered; 
+	var seconds; 
+	var time; 
+	var answered; 
+	var userSelect;
+	var messages = {
+		correct: "Congratulations, feel free to high-five a million angels!",
+		incorrect: "That's not the right answer." + "<br>" + '"No. No. It Okay. Don\'t Be Cry"',
+		endTime: "Looks like you ran out of time!" + "<br>" + "But... It's never too late, it's never too late for now!",
+		finished: "So, how'd you do?"
+	};
 
 	//All questions inside an array of objects
-	var allQuestions = [
+	var triviaQuestions = [
 		{	question: "What state is Kenneth originally from?",
-			choices: [	"Florida",
+			answerList: [	"Florida",
 						"New York",
 						"Alabama",
 						"Georgia",
-						"Arkansas"]
-			rightAnswrIndx: 4,
-			image: "../images/Q1_Kenneth.jpg"
+						"Arkansas"],
+			answer: 3,
+			image: "assets/images/Q1_Kenneth.gif",
 			answerText: "Kenneth Parcel is originally from Stone Mountain, Georgia."
 		},
 
 		{	question: "What type of instrument does Jack play?",
-			choices: [	"Piano",
+			answerList: [	"Piano",
 						"Guitar",
 						"Flute",
 						"Violin",
-						"Drums"]
-			rightAnswrIndx: 3,
-			image: "../images/Q2_Jack.jpg"
+						"Drums"],
+			answer: 2,
+			image: "assets/images/Q2_Jack.gif",
 			answerText: "Jack plays the flute. Condoleezza Rice challenged Jack to a piano vs. jazz flute musical duel."
 		},
 
 		{	question: "In what tough neighborhood was Tracy's Little League team located?",
-			choices: [	"Midtown",
+			answerList: [	"Midtown",
 						"Hunts Point",
 						"Brownsville",
 						"Hell's Kitchen",
-						"Knuckle Beach"]
-			rightAnswrIndx: 5,
-			image: "../images/Q3_Tracy.jpg"
+						"Knuckle Beach"],
+			answer: 4,
+			image: "assets/images/Q3_Tracy.jpg",
 			answerText: "Tracy is ordered to do community service in the form of coaching the Knuckle Beach Little League Baseball Team."
 		},
 
 		{	question: "Jenna states that she plans to donate her cut hair to which charity?",
-			choices: [	"Locks of Love",
+			answerList: [	"Locks of Love",
 						"Merkins of Hope",
 						"Wigs For Kids",
 						"Pantene Beautiful Lenghts",
-						"Angel Hair For Kids"]
-			rightAnswrIndx: 2,
-			image: "../images/Q4_Jenna.jpg"
+						"Angel Hair For Kids"],
+			answer: 1,
+			image: "assets/images/Q4_Jenna.gif",
 			answerText: "Jenna was turned down by Locks of Love and instead will donate her hair follicles to Merkins of Love"
 		},
 
 		{	question: "Which company ends up buying NBC in Season 4?",
-			choices: [	"Kabletown",
+			answerList: [	"Kabletown",
 						"Sheinhardt Wig Company",
 						"Telemundo",
 						"G.E.",
-						"AHP Chanagi Party Meats"]
-			rightAnswrIndx: 1,
-			image: "../images/Q5_NBC.jpg"
-			answerText: "Jenna was turned down by Locks of Love and instead will donate her hair follicles to Merkins of Love"
+						"AHP Chanagi Party Meats"],
+			answer: 0,
+			image: "assets/images/Q5_NBC.jpg",
+			answerText: "In season 4 NBC is being purchased by the Philadelphia-based cable company Kabletown, a fictionalized depiction of the acquisition of NBC Universal by Comcast in real life."
 		},
 
 		{	question: "What is Liz extremely self-conscious about?",
-			choices: [	"Her muffin top",
+			answerList: [	"Her muffin top",
 						"The scar on her face",
 						"Her feet",
 						"Her thin lips",
-						"Her eating habits"]
-			rightAnswrIndx: 3,
-			image: "../images/Q6_Liz.jpg"
+						"Her eating habits"],
+			answer: 2,
+			image: "assets/images/Q6_Liz.gif",
 			answerText: "Liz Lemon's tropical paradise includes wearing socks and sandals on the beach, because she is self-conscious about her feet."
 		},
 
 		{	question: "Liz has a 'history' with one of Tracy's friends. Who is that friend?",
-			choices: [	"Dotcom",
+			answerList: [	"Dotcom",
 						"Jeremy (Tracy's Lizard)",
 						"Kenneth",
 						"Grizz",
-						"Donald"]
-			rightAnswrIndx: 4,
-			image: "../images/Q7_Grizz.jpg"
+						"Donald"],
+			answer: 3,
+			image: "assets/images/Q7_Grizz.gif",
 			answerText: "Liz has a 'history' with Grizz. The two are seen passionately kissing at Kenneth's party."
 		},		
 
 		{	question: "Sheinhardt Wig Company 'accidentally' turned a great population of children into which color?",
-			choices: [	"Orange",
+			answerList: [	"Orange",
 						"Yellow",
 						"Pink",
 						"Green",
-						"Blue"]
-			rightAnswrIndx: 1,
-			image: "../images/Q8_OrangeKids.jpg"
+						"Blue"],
+			answer: 0,
+			image: "assets/images/Q8_OrangeKids.jpg",
 			answerText: "The company was allegedly leaking Auburn Fantasy Dye Number 260 into the Chicktaugua River, causing the children of Chickataugua to turn orange."
 		},		
 
 		{	question: "In the show's pilot, Liz buys an entire box of what food item?",
-			choices: [	"Cheese",
+			answerList: [	"Cheese",
 						"Teamster Subs",
 						"Sabor De Soledad",
 						"Cheesy Blasters",
-						"Hot Dogs"]
-			rightAnswrIndx: 5,
-			image: "../images/Q9_Food.jpg"
+						"Hot Dogs"],
+			answer: 4,
+			image: "assets/images/Q9_Food.gif",
 			answerText: "In the show's pilot, Liz is attempting to buy a hot dog before work. A fellow commuter tries to jump the line, then Liz buys $150 worth of hot dogs to make a point."
 		},		
 
 		{	question: "When Liz fantasizes of the perfect man for her, who does she picture?",
-			choices: [	"Conan O'Brien",
+			answerList: [	"Conan O'Brien",
 						"Astronaut Mike Dexter",
 						"Jon Bon Jovi",
 						"James Franco",
-						"Buzz Aldrin"]
-			rightAnswrIndx: 2,
-			image: "../images/10_MikeDexter.jpg"
+						"Buzz Aldrin"],
+			answer: 1,
+			image: "assets/images/Q10_MikeDexter.gif",
 			answerText: "Astronaut Mike Dexter is Liz's fantasy boyfriend that she compares all other men to."
 		},		
 
 	];
 
-	
-
-
-	//Timer Object
-	timer = {
-
-		time: 120,
-		interval: null,
-
-		start: function() {
-
-			//Start the timer
-			timer.interval = setInterval(timer.count, 1000);
-			$("#timer").html(timer.time);
-		},
-
-		count: function() {
-
-			//Decrement the timer by one second
-			timer.time--;
-			$("#time").html(timer.time);
-			// if (timer.time == 0) {
-			// 	clearInterval(timer.interval);
-			// 	generateResults();
-
-			}
-		}
-
-
-
-	
 
 // FUNCTIONS
 // =========
 
-	//Function that starts a new game
+	//This hides the game area on page load
+	$("#gameCol").hide();
 	
+	//This captures user click on start button to create a new game
+	$("#startBtn").on("click", function(){
+		$(this).hide();
+		newGame();
+	});
 
-	//Function that stops the game if user clicks DONE
+	//This captures the user's click on the reset button to create a new game
+	$("#startOverBtn").on("click", function(){
+		$(this).hide();
+		newGame();
+	});
 
-	//
+	//This function sets up the page for a new game emptying all areas and showing game area
+	function newGame(){
+		$("#gameCol").show();
+		$("#finalMessage").empty();
+		$("#correctAnswers").empty();
+		$("#incorrectAnswers").empty();
+		$("#unanswered").empty();
+		$("#gif").hide();
+		$("#gifCaption").hide();
+		currentQuestion = 0;
+		correctAnswer = 0;
+		incorrectAnswer = 0;
+		unanswered = 0;
+		newQuestion();
+	}
 
+	//This function displays the next question
+	function newQuestion(){
+		$("#message").empty();
+		$("#correctedAnswer").empty();
+		$("#gif").hide();
+		$("#gifCaption").hide();
+		answered = true;
+		
+		//This function displays the new question
+		$("#currentQuestion").html("Question " + (currentQuestion+1) + " of " + triviaQuestions.length);
+		$(".question").html(triviaQuestions[currentQuestion].question);
+
+		//This function displays the new questions's answer options in multiple choice type
+		for(var i = 0; i <= 5; i++){
+
+			var choices = $("<div>");
+			choices.text(triviaQuestions[currentQuestion].answerList[i]);
+			choices.attr({"data-index": i });
+			choices.addClass("thisChoice");
+			$(".answerList").append(choices);
+		}
+
+		//This sets the timer
+		countdown();
+
+		//When user clicks on n answer this will pause the time and display the correct answer to the question 
+		$(".thisChoice").on("click",function(){
+				userSelect = $(this).data("index");
+				clearInterval(time);
+				answerPage();
+			});
+		}
+
+	//This function is for the timer countdown
+	function countdown(){
+		seconds = 15;
+		$("#timeLeft").html("00:" + seconds);
+		answered = true;
+		//Sets a delay of one second before the timer starts
+		time = setInterval(showCountdown, 1000);
+	}
+
+	//This function displays the countdown
+	function showCountdown(){
+		seconds--;
+		$("#timeLeft").html("00:" + seconds);
+		if(seconds < 1){
+			clearInterval(time);
+			answered = false;
+			answerPage();
+		}
+	}
+
+	//This function takes the user to the answer page after the user selects an answer or timer runs out
+	function answerPage(){
+		$("#currentQuestion").empty();
+		$(".thisChoice").empty(); //Clears question page
+		$(".question").empty();
+		$("#gif").show();
+		$("#gifCaption").show();
+
+		var rightAnswerText = triviaQuestions[currentQuestion].answerList[triviaQuestions[currentQuestion].answer];
+		var rightAnswerIndex = triviaQuestions[currentQuestion].answer;
+
+		//This adds the gif that corresponds to this quesiton
+		var gifImageLink = triviaQuestions[currentQuestion].image;
+		var newGif = $("<img>");
+		newGif.attr("src", gifImageLink);
+		newGif.addClass("gifImg");
+		$("#gif").html(newGif);
+
+		//STILL TO DO
+		//This adds a line of text below the gif that talks about why the answer is correct.
+		var gifCaption = triviaQuestions[currentQuestion].answerText;
+			newCaption = $("<div>");
+			newCaption.html(gifCaption);
+			newCaption.addClass("gifCaption");
+			$("#gifCaption").html(newCaption);
+		
+		//This checks to see if user choice is correct, incorrect, or unanswered
+		if((userSelect == rightAnswerIndex) && (answered === true)){
+			correctAnswer++;
+			$('#message').html(messages.correct);
+		} else if((userSelect != rightAnswerIndex) && (answered === true)){
+			incorrectAnswer++;
+			$('#message').html(messages.incorrect);
+			$('#correctedAnswer').html('The correct answer was: ' + rightAnswerText);
+		} else{
+			unanswered++;
+			$('#message').html(messages.endTime);
+			$('#correctedAnswer').html('The correct answer was: ' + rightAnswerText);
+			answered = true;
+		}
+		
+		if(currentQuestion == (triviaQuestions.length-1)){
+			setTimeout(scoreboard, 6000);
+		} else{
+			currentQuestion++;
+			setTimeout(newQuestion, 6000);
+		}	
+	}
+
+	//This fucntion displays all the game stats
+	function scoreboard(){
+		$('#timeLeft').empty();
+		$('#message').empty();
+		$('#correctedAnswer').empty();
+		$('#gif').hide();
+		$("#gifCaption").hide();
+
+		$('#finalMessage').html(messages.finished);
+		$('#correctAnswers').html("Correct Answers: " + correctAnswer);
+		$('#incorrectAnswers').html("Incorrect Answers: " + incorrectAnswer);
+		$('#unanswered').html("Unanswered: " + unanswered);
+		$('#startOverBtn').addClass('reset');
+		$('#startOverBtn').show();
+		$('#startOverBtn').html("PLAY AGAIN");
+	}
 
 // MAIN PROCESS
 //=============
 
-	//Make sure all elements that need to be hidden are hidden from user
-
-   
-
 }); //IMPORTANT!
-

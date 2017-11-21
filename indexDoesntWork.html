@@ -18,10 +18,15 @@
 	<!-- Linking my own CSS -->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
+	<!-- Linking Google Web Fonts -->
+	
+
 	<title>30 ROCK TRIVIA GAME</title>
 	
 </head>
 <body>
+
+<!-- BEGIN HTML PAGE CONTENT -->
 
 <!-- JUMBOTRON -->
 <div class="jumbotron">
@@ -46,31 +51,52 @@
 				<div id="start">
 					<button id="startBtn">START THE GAME</button>
 				</div>
+
+				<div id="timer">
+					<p>00:00</p>
+				</div>
 			</div>
 		</div> <!-- End Column 2A -->
 	</div> <!-- End Row 2 -->
 
 	<div class="row" id="gameRow"> <!-- Begin Row 3 -->
 		<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-6 col-md-offset-3" id="gameCol"> <!-- Begin Column 3A -->
+			<div id="containerOne">
 
-			<!-- WHEN EACH QUESTION IS DISPLAYED -->
-			<div id="currentQuestion"></div>
-			<div id="timeLeft"></div>
-			<div class="question"></div>
-			<div class="answerList"></div>
 
-			<!-- WHEN EACH ANSWER IS DISPLAYED -->
-			<div id="message"></div>
-			<div id="correctedAnswer"></div>
-			<div id="gif"></div>
-			<div id="gifCaption"></div>
 
-			<!-- WHEN RESULTS ARE DISPLAYED -->
-			<div id="finalMessage"></div>
-			<div id="correctAnswers"></div>
-			<div id="incorrectAnswers"></div>
-			<div id="unanswered"></div>
-			<div id="startOverBtn"></div>
+
+
+
+
+				<div id="questionDiv">
+					<p id="question"></p>
+				</div>
+
+				<div id="choicesDiv">
+					<div id="choices"></div>
+				</div>
+			</div>
+			
+			<div id="containerTwo">
+				<div id="answerDiv">
+					<p></p>
+				</div>	
+			</div>
+
+			<div id="containerThree">
+				<div id="gameOver">
+				</div>	
+
+				<div id="results">
+					<p></p>
+				</div>
+
+				<div id="restart">
+					<button id="restartBtn">RESTART THE GAME</button>
+				</div>
+			</div>
+
 
 		</div> <!-- End Column 3A -->
 
@@ -78,11 +104,13 @@
 
 </div> <!-- End Container -->
 
-<!-- Linking jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<!-- Linking jQuery CDN -->
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 
-<!-- Linking my own JAVASCRIPT -->
-<script type="text/javascript" src="assets/javascript/app.js"></script>
+	<!-- Linking my own JAVASCRIPT -->
+	<script type="text/javascript" src="assets/javascript/app.js"></script>
+
+
 
 </body>
 </html>
